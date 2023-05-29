@@ -1,7 +1,4 @@
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_training_iifl/pages/columnExample.dart';
 

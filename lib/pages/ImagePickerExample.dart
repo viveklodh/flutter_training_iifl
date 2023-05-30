@@ -4,22 +4,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImagePickerExample extends StatelessWidget {
-   ImagePickerExample({Key? key}) : super(key: key);
+class ImagePickerExample extends StatefulWidget {
+  ImagePickerExample({Key? key}) : super(key: key);
 
+  @override
+  State<ImagePickerExample> createState() => _ImagePickerExampleState();
+}
+
+class _ImagePickerExampleState extends State<ImagePickerExample> {
   File? image;
-  Future pickImage() async {
-    try {
 
+  File? imageFile;
+
+  Future pickImageFromGallery() async {
+    try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-      if(image == null) return;
+      if (image == null) return;
 
-      final imageTemp = File(image.path);
+      imageFile = File(image.path);
+      setState(() {});
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
 
-      print(imageTemp.path);
+  Future pickImageFromCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
 
-    } on PlatformException catch(e) {
+      if (image == null) return;
+
+      imageFile = File(image.path);
+
+      setState(() {});
+    } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
@@ -27,10 +46,35 @@ class ImagePickerExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("image picker"),),
-      body: Center(child: ElevatedButton(onPressed: (){
-        pickImage();
-      },child: Text("pick image"),),),
+      appBar: AppBar(
+        title: Text("image picker"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            imageFile == null
+                ? CircularProgressIndicator()
+                : Image.file(
+                    imageFile!,
+                    height: 100,
+                    width: 200,
+                  ),
+            ElevatedButton(
+              onPressed: () {
+                pickImageFromCamera();
+              },
+              child: Text("pick image from camera"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                pickImageFromGallery();
+              },
+              child: Text("pick image from gallery"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

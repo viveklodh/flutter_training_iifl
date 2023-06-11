@@ -10,12 +10,12 @@ class ExpandedExample extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.yellow,
+        color: Colors.white24,
         child: Row(
           children: [
-            Expanded(flex:1,child: Container(color: Colors.red,)),
-            Expanded(flex:2,child: Container(color: Colors.blue,)),
-            Expanded(flex:1,child: Container(color: Colors.black,)),
+            Expanded(flex:1,child: Container(color: Colors.red,width: 100,height: 100,)),
+            Expanded(flex:3,child: Container(color: Colors.blue,width:100,height: 100,)),
+           // Expanded(child: Container(color: Colors.black,)),
           ],
         ),
       ),

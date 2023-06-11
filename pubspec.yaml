@@ -31,12 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  image_picker:
+#  image_picker:
 
   page_transition:
 
-  hive:
-  hive_flutter:
+#  hive:
+#  hive_flutter:
+
+  http: ^1.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
